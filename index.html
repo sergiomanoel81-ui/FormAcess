@@ -1,0 +1,1462 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Solicitação de Acessos - TI</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            padding: 20px;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+        
+        .form-content {
+            padding: 40px;
+        }
+        
+        .section {
+            margin-bottom: 35px;
+            padding-bottom: 25px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 20px;
+            color: #4F46E5;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .section-number {
+            background: #4F46E5;
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        
+        .required {
+            color: #e74c3c;
+            margin-left: 3px;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #D1D5DB;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s;
+            font-family: inherit;
+            background: #FFFFFF;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4F46E5;
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+            background: #FAFAFA;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .radio-group {
+            display: flex;
+            gap: 20px;
+            margin-top: 10px;
+        }
+        
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .radio-option input[type="radio"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .checkbox-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 12px;
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 8px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .checkbox-item:hover {
+            background: #F3F4F6;
+            border-color: #4F46E5;
+        }
+        
+        .checkbox-item input[type="checkbox"] {
+            margin-top: 3px;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .checkbox-item label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: 500;
+        }
+        
+        .system-details {
+            display: none;
+            margin-top: 15px;
+            padding: 15px;
+            background: #F9FAFB;
+            border-left: 4px solid #4F46E5;
+            border-radius: 5px;
+        }
+        
+        .system-details.active {
+            display: block;
+        }
+        
+        .help-text {
+            font-size: 12px;
+            color: #6B7280;
+            margin-top: 5px;
+        }
+        
+        .info-box {
+            background: #EFF6FF;
+            border-left: 4px solid #3B82F6;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box strong {
+            color: #1E40AF;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        button {
+            padding: 14px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%);
+            color: white;
+            flex: 1;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.35);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: #4F46E5;
+            border: 2px solid #4F46E5;
+        }
+        
+        .btn-secondary:hover {
+            background: #EEF2FF;
+        }
+        
+        .approval-section {
+            background: #fff9e6;
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .badge-required {
+            background: #FEE2E2;
+            color: #991B1B;
+            border: 1px solid #FCA5A5;
+        }
+        
+        .badge-optional {
+            background: #DBEAFE;
+            color: #1E40AF;
+            border: 1px solid #93C5FD;
+        }
+        
+        /* Tasy Accordion Styles */
+        .tasy-category {
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .tasy-category:last-child {
+            border-bottom: none;
+        }
+        
+        .tasy-category-header {
+            padding: 15px 20px;
+            background: #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            transition: all 0.3s;
+            user-select: none;
+        }
+        
+        .tasy-category-header:hover {
+            background: #e9ecef;
+        }
+        
+        .tasy-arrow {
+            transition: transform 0.3s;
+            font-size: 12px;
+        }
+        
+        .tasy-category-header.active .tasy-arrow {
+            transform: rotate(180deg);
+        }
+        
+        .tasy-category-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: white;
+        }
+        
+        .tasy-category-content.active {
+            max-height: 2000px;
+            padding: 15px;
+        }
+        
+        .tasy-perfil-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 12px;
+            background: #F9FAFB;
+            border: 2px solid #E5E7EB;
+            border-radius: 6px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 400;
+        }
+        
+        .tasy-perfil-item:hover {
+            background: #F3F4F6;
+            border-color: #4F46E5;
+            transform: translateX(3px);
+        }
+        
+        .tasy-perfil-item input[type="checkbox"] {
+            cursor: pointer;
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            flex-shrink: 0;
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s;
+        }
+        
+        .modal-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 24px;
+        }
+        
+        .modal-close {
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            line-height: 1;
+            transition: transform 0.2s;
+        }
+        
+        .modal-close:hover {
+            transform: scale(1.2);
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .email-info {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .email-field {
+            margin-bottom: 15px;
+            display: grid;
+            grid-template-columns: 80px 1fr auto;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .email-field:last-child {
+            margin-bottom: 0;
+        }
+        
+        .email-field input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            background: white;
+        }
+        
+        .btn-copy-small {
+            padding: 8px 15px;
+            background: #4F46E5;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .btn-copy-small:hover {
+            background: #4338CA;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { 
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .form-row,
+            .checkbox-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .form-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Formulário de Solicitação de Acessos</h1>
+            <p>Grupo CSB | Clínica Senhor do Bonfim - Setor de TI</p>
+        </div>
+        
+        <div class="form-content">
+            <form id="accessForm">
+                
+                <!-- SEÇÃO 1: DADOS DO SOLICITANTE -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">1</span>
+                        <span>Dados do Solicitante</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome do Coordenador <span class="required">*</span></label>
+                            <input type="text" name="coordenador" required placeholder="Digite seu nome completo">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Setor <span class="required">*</span></label>
+                            <select name="setor" required>
+                                <option value="">Selecione...</option>
+                                <option value="administrativo">Administrativo</option>
+                                <option value="assistencial">Assistencial</option>
+                                <option value="almoxarifado">Almoxarifado</option>
+                                <option value="compras">Compras</option>
+                                <option value="contabilidade">Contabilidade</option>
+                                <option value="enfermagem">Enfermagem</option>
+                                <option value="farmacia">Farmácia</option>
+                                <option value="faturamento">Faturamento</option>
+                                <option value="financeiro">Financeiro</option>
+                                <option value="qualidade">Qualidade</option>
+                                <option value="same">SAME</option>
+                                <option value="ti">TI</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Estabelecimento <span class="required">*</span></label>
+                            <select name="estabelecimento" required>
+                                <option value="">Selecione...</option>
+                                <option value="matriz">Matriz</option>
+                                <option value="convenios">Convênios</option>
+                                <option value="rio-vermelho">Rio Vermelho</option>
+                                <option value="monte-serrat">Monte Serrat</option>
+                                <option value="santo-estevao">Santo Estevão</option>
+                                <option value="gratidao">Gratidão</option>
+                                <option value="todos">Todos</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Data da Solicitação <span class="required">*</span></label>
+                            <input type="date" name="data" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEÇÃO 2: DADOS DO COLABORADOR -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">2</span>
+                        <span>Dados do Colaborador</span>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Nome Completo <span class="required">*</span></label>
+                            <input type="text" name="colaborador_nome" required placeholder="Nome completo do colaborador">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>CPF <span class="required">*</span></label>
+                            <input type="text" name="cpf" required placeholder="000.000.000-00">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Função/Cargo <span class="required">*</span></label>
+                            <input type="text" name="funcao" required placeholder="Ex: Enfermeiro, Analista de Faturamento...">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email Corporativo</label>
+                            <input type="email" name="email" placeholder="colaborador@clinicacsb.com.br">
+                            <div class="help-text">Será criado caso não exista</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEÇÃO 3: TIPO DE SOLICITAÇÃO -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">3</span>
+                        <span>Tipo de Solicitação</span>
+                    </div>
+                    
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="tipo_admissao" name="tipo_solicitacao" value="admissao" checked>
+                            <label for="tipo_admissao">Nova Admissão</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="tipo_alteracao" name="tipo_solicitacao" value="alteracao">
+                            <label for="tipo_alteracao">Alteração de Acesso</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEÇÃO 4: SISTEMAS E ACESSOS -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">4</span>
+                        <span>Sistemas e Acessos Solicitados</span>
+                    </div>
+                    
+                    <div class="info-box">
+                        <strong>ℹ️ Importante:</strong> Marque os sistemas necessários. Ao selecionar, aparecerão opções específicas de cada sistema.
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <!-- TASY -->
+                        <div class="checkbox-item" onclick="toggleSystem('tasy')">
+                            <input type="checkbox" id="sistema_tasy" name="sistemas" value="tasy">
+                            <label for="sistema_tasy">
+                                <strong>Sistema Tasy</strong>
+                                <div class="help-text">Sistema hospitalar</div>
+                            </label>
+                        </div>
+                        
+                        <!-- MICROSOFT 365 -->
+                        <div class="checkbox-item" onclick="toggleSystem('m365')">
+                            <input type="checkbox" id="sistema_m365" name="sistemas" value="m365">
+                            <label for="sistema_m365">
+                                <strong>Microsoft 365</strong>
+                                <div class="help-text">Email e Office</div>
+                            </label>
+                        </div>
+                        
+                        <!-- BI WEKNOW -->
+                        <div class="checkbox-item" onclick="toggleSystem('bi')">
+                            <input type="checkbox" id="sistema_bi" name="sistemas" value="bi">
+                            <label for="sistema_bi">
+                                <strong>BI Weknow</strong>
+                                <div class="help-text">Relatórios e dashboards</div>
+                            </label>
+                        </div>
+                        
+                        <!-- HARDWARE -->
+                        <div class="checkbox-item" onclick="toggleSystem('hardware')">
+                            <input type="checkbox" id="sistema_hardware" name="sistemas" value="hardware">
+                            <label for="sistema_hardware">
+                                <strong>Hardware</strong>
+                                <div class="help-text">Computadores e equipamentos</div>
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALHES TASY -->
+                    <div id="details_tasy" class="system-details">
+                        <h4 style="margin-bottom: 15px;">🏥 Sistema Tasy - Selecione os Perfis Necessários</h4>
+                        
+                        <div class="info-box">
+                            <strong>ℹ️ Dica:</strong> Use o campo de busca ou expanda as categorias. Um colaborador pode ter múltiplos perfis.
+                        </div>
+                        
+                        <!-- BUSCA DE PERFIS -->
+                        <div style="margin: 15px 0;">
+                            <input type="text" id="tasy_search" placeholder="🔍 Buscar perfil por nome ou código..." style="width: 100%;" onkeyup="filtrarPerfisTasy()">
+                        </div>
+                        
+                        <!-- ACCORDION DE CATEGORIAS -->
+                        <div style="border: 1px solid #e0e0e0; border-radius: 8px; overflow: hidden;">
+                            
+                            <!-- CATEGORIA 1: Gestão e Cadastros -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('gestao')">
+                                    <span>📋 Gestão e Cadastros (12 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_gestao" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="1848"> Adm do Sistema <span class="badge badge-required">Aprovação Especial</span></label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2145"> Administrativo - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="1889"> Assistencial - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2249"> Faturamento - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2346_cad"> Financeiro - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2211_cad"> Compras - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2172_cad"> Contabilidade - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="alm_cad"> Almoxarifado - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="farm_cad"> Farmácia - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="rh_cad"> Recursos Humanos - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="same_cad"> SAME - Cadastros</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="ti_cad"> TI - Cadastros</label>
+                                </div>
+                            </div>
+                            
+                            <!-- CATEGORIA 2: Operação Administrativa -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('operacional')">
+                                    <span>💼 Operação Administrativa (12 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_operacional" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2211"> Compras - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2172"> Contabilidade - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2251"> Faturamento - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2346"> Financeiro - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2222"> SAME - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="2367"> TI - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="alm_op"> Almoxarifado - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="farm_op"> Farmácia - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="recepcao"> Recepção</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="agendamento"> Agendamento</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="rh_op"> Recursos Humanos - Operacional</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="tesouraria"> Tesouraria</label>
+                                </div>
+                            </div>
+                            
+                            <!-- CATEGORIA 3: Assistencial/Clínica -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('assistencial')">
+                                    <span>🏥 Assistencial/Clínica (11 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_assistencial" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="medico"> Médico</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="enf_dialise"> Enfermagem - Diálise</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="tec_dialise"> Técnico de Enfermagem - Diálise</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="aux_dialise"> Auxiliar de Enfermagem - Diálise</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="fisio"> Fisioterapia</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="nutri"> Nutrição</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="psico"> Psicologia</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="servico_social"> Serviço Social</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="farmaceutico"> Farmacêutico Clínico</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="lab"> Laboratório</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="ambulatorio"> Ambulatório/PEPA</label>
+                                </div>
+                            </div>
+                            
+                            <!-- CATEGORIA 4: Apoio Operacional -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('apoio')">
+                                    <span>🔧 Apoio Operacional (8 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_apoio" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="hotelaria"> Hotelaria</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="higienizacao"> Higienização</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="manutencao"> Manutenção</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="portaria"> Portaria/Segurança</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="transporte"> Transporte</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="cmme"> CMME - Central de Material</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="reuso"> Reuso de Capilares</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="tratamento_agua"> Tratamento de Água</label>
+                                </div>
+                            </div>
+                            
+                            <!-- CATEGORIA 5: Supervisão -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('supervisao')">
+                                    <span>👔 Supervisão e Coordenação (9 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_supervisao" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_medica"> Coordenação Médica</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_enf"> Coordenação de Enfermagem</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_admin"> Coordenação Administrativa</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_financ"> Coordenação Financeira</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_fatur"> Coordenação de Faturamento</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_compras"> Coordenação de Compras</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_alm"> Coordenação de Almoxarifado</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_farm"> Coordenação de Farmácia</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="coord_qualidade"> Coordenação de Qualidade</label>
+                                </div>
+                            </div>
+                            
+                            <!-- CATEGORIA 6: Perfis Excepcionais -->
+                            <div class="tasy-category">
+                                <div class="tasy-category-header" onclick="toggleTasyCategory('excepcional')">
+                                    <span>⭐ Perfis Excepcionais (15 perfis)</span>
+                                    <span class="tasy-arrow">▼</span>
+                                </div>
+                                <div id="tasy_excepcional" class="tasy-category-content">
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="gerente"> Gerente <span class="badge badge-required">Aprovação Especial</span></label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="diretor"> Diretor <span class="badge badge-required">Aprovação Especial</span></label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="controladoria"> Controladoria <span class="badge badge-required">Aprovação Especial</span></label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="auditoria_interna"> Auditoria Interna</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="auditoria_externa"> Auditoria Externa (Temporário)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="consultoria"> Consultoria Externa (Temporário)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="compliance"> Compliance</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="juridico"> Jurídico</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="vigilancia"> Vigilância Sanitária (Consulta)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="inspecao_trab"> Inspeção do Trabalho (Consulta)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="sesmt"> SESMT - Segurança do Trabalho</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="cipa"> CIPA</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="estagio"> Estagiário (Acesso Limitado)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="treinamento"> Treinamento (Ambiente de Teste)</label>
+                                    <label class="tasy-perfil-item"><input type="checkbox" name="tasy_perfis" value="suporte_fornecedor"> Suporte Fornecedor (Temporário) <span class="badge badge-required">Aprovação Especial</span></label>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        
+                        <div class="info-box" style="margin-top: 15px; background: #ffe6e6; border-left-color: #dc3545;">
+                            <strong>⚠️ Atenção:</strong> Perfis marcados com <span class="badge badge-required">Aprovação Especial</span> requerem autorização da Diretoria conforme POP TI 001.
+                        </div>
+                    </div>
+                    
+                    <!-- DETALHES M365 -->
+                    <div id="details_m365" class="system-details">
+                        <h4 style="margin-bottom: 15px;">📧 Microsoft 365 - Selecione a Licença Principal</h4>
+                        <div class="form-group">
+                            <label>Licença Base <span class="required">*</span></label>
+                            <div class="radio-group" style="flex-direction: column; gap: 10px;">
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                                    <input type="radio" id="m365_basic" name="m365_licenca" value="basic">
+                                    <label for="m365_basic" style="cursor: pointer;">
+                                        <strong>Business Basic</strong> <span class="badge badge-optional">R$ 33,40/mês</span>
+                                        <div class="help-text">Email (50GB) + Office Online (navegador) + Teams + OneDrive (1TB)</div>
+                                    </label>
+                                </div>
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px;">
+                                    <input type="radio" id="m365_standard" name="m365_licenca" value="standard">
+                                    <label for="m365_standard" style="cursor: pointer;">
+                                        <strong>Business Standard</strong> <span class="badge badge-required">R$ 83,50/mês</span>
+                                        <div class="help-text">Tudo do Basic + Office instalável (Word, Excel, PowerPoint, Outlook) em até 5 dispositivos</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="info-box" style="margin-top: 15px; background: #fff3cd; border-left-color: #ffc107;">
+                            <strong>💡 Adicional Opcional:</strong> Exchange Online P2 pode ser adicionado a qualquer licença acima para recursos avançados de email.
+                        </div>
+                        
+                        <div class="form-group" style="margin-top: 15px;">
+                            <div class="checkbox-item" style="background: white; border: 2px solid #e0e0e0;">
+                                <input type="checkbox" id="m365_exchange_addon" name="m365_exchange_addon" value="yes">
+                                <label for="m365_exchange_addon" style="cursor: pointer;">
+                                    <strong>+ Exchange Online P2</strong> <span class="badge badge-optional">R$ 53,40/mês adicional</span>
+                                    <div class="help-text">Email avançado (100GB), Arquivamento ilimitado, Proteção avançada contra spam/malware, Políticas de conformidade (DLP, eDiscovery)</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALHES BI -->
+                    <div id="details_bi" class="system-details">
+                        <h4 style="margin-bottom: 15px;">📊 BI Weknow - Selecione Perfil e Grupos</h4>
+                        
+                        <div class="form-group">
+                            <label>Perfil de Sistema <span class="required">*</span></label>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                    <input type="radio" id="bi_vis" name="bi_perfil" value="visualizador">
+                                    <label for="bi_vis" style="cursor: pointer; margin: 0;">
+                                        <strong>WK-VIS - Visualizador</strong>
+                                        <div class="help-text">Apenas consulta</div>
+                                    </label>
+                                </div>
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                    <input type="radio" id="bi_contato" name="bi_perfil" value="contato">
+                                    <label for="bi_contato" style="cursor: pointer; margin: 0;">
+                                        <strong>WK-CON - Contato</strong>
+                                        <div class="help-text">Recebe alertas</div>
+                                    </label>
+                                </div>
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                    <input type="radio" id="bi_admin" name="bi_perfil" value="administrador">
+                                    <label for="bi_admin" style="cursor: pointer; margin: 0;">
+                                        <strong>WK-ADM - Administrador</strong>
+                                        <div class="help-text">Gerencia acessos</div>
+                                    </label>
+                                </div>
+                                <div class="radio-option" style="padding: 12px; background: #f8f9fa; border-radius: 8px; border: 2px solid #e0e0e0;">
+                                    <input type="radio" id="bi_dev" name="bi_perfil" value="desenvolvedor">
+                                    <label for="bi_dev" style="cursor: pointer; margin: 0;">
+                                        <strong>WK-DEV - Desenvolvedor</strong>
+                                        <div class="help-text">Cria dashboards</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 25px;">
+                            <label style="display: block; margin-bottom: 12px;"><strong>Grupos de Acesso</strong> <span class="required">*</span></label>
+                            <div class="info-box">
+                                <strong>ℹ️ Importante:</strong> Selecione os grupos conforme as áreas/dashboards que o colaborador precisa visualizar. Um usuário pode ter múltiplos grupos.
+                            </div>
+                            
+                            <div style="margin-top: 15px;">
+                                <strong style="display: block; margin-bottom: 10px; color: #667eea;">⭐ Acesso Total</strong>
+                                <div style="display: grid; gap: 8px; margin-bottom: 15px;">
+                                    <label class="tasy-perfil-item" style="background: #fff9e6; border: 2px solid #ffd700;">
+                                        <input type="checkbox" name="bi_grupos" value="1"> 
+                                        <strong>Administrators</strong> 
+                                        <span class="badge badge-required">Aprovação Especial</span>
+                                        <div class="help-text">Acesso completo a todos os dashboards</div>
+                                    </label>
+                                    <label class="tasy-perfil-item" style="background: #fff9e6; border: 2px solid #ffd700;">
+                                        <input type="checkbox" name="bi_grupos" value="2"> 
+                                        <strong>Diretoria</strong>
+                                        <span class="badge badge-required">Aprovação Especial</span>
+                                        <div class="help-text">Indicadores estratégicos (Assistência, SGQ, Administrativo)</div>
+                                    </label>
+                                </div>
+                                
+                                <strong style="display: block; margin-bottom: 10px; color: #667eea;">🏥 Áreas Assistenciais</strong>
+                                <div style="display: grid; gap: 8px; margin-bottom: 15px;">
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="3"> 
+                                        <strong>Qualidade</strong>
+                                        <div class="help-text">Indicadores SGQ + Indicadores Assistência (qualidade)</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="4"> 
+                                        <strong>Médico</strong>
+                                        <div class="help-text">Indicadores Assistência (todos assistenciais)</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="5"> 
+                                        <strong>Coord. Enfermagem</strong>
+                                        <div class="help-text">Indicadores Assistência + SGQ (enfermagem/supervisão)</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="6"> 
+                                        <strong>Enfermeira</strong>
+                                        <div class="help-text">Indicadores Assistência (operacionais) + SGQ (consumo)</div>
+                                    </label>
+                                </div>
+                                
+                                <strong style="display: block; margin-bottom: 10px; color: #667eea;">📦 Áreas Operacionais por Setor</strong>
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 15px;">
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="7"> 
+                                        <strong>Almoxarifado</strong>
+                                        <div class="help-text">Almoxarifado > Suprimentos completo</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="10"> 
+                                        <strong>Almoxarifado Operacional</strong>
+                                        <div class="help-text">Suprimentos (operacional básico)</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="8"> 
+                                        <strong>Financeiro</strong>
+                                        <div class="help-text">Indicadores Adm > Financeiro completo</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="9"> 
+                                        <strong>Faturamento</strong>
+                                        <div class="help-text">Indicadores Adm > Faturamento completo</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="11"> 
+                                        <strong>Compras</strong>
+                                        <div class="help-text">Almoxarifado > Compras completo</div>
+                                    </label>
+                                    <label class="tasy-perfil-item">
+                                        <input type="checkbox" name="bi_grupos" value="13"> 
+                                        <strong>Farmácia</strong>
+                                        <div class="help-text">Almoxarifado > Farmácia + Indicadores Adm > Farmácia</div>
+                                    </label>
+                                </div>
+                                
+                                <strong style="display: block; margin-bottom: 10px; color: #667eea;">💻 Área Técnica</strong>
+                                <div style="display: grid; gap: 8px;">
+                                    <label class="tasy-perfil-item" style="background: #e7f3ff; border: 2px solid #2196F3;">
+                                        <input type="checkbox" name="bi_grupos" value="12"> 
+                                        <strong>Desenvolvimento</strong>
+                                        <div class="help-text">Acesso total (desenvolvimento de BI)</div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- DETALHES HARDWARE -->
+                    <div id="details_hardware" class="system-details">
+                        <h4 style="margin-bottom: 15px;">💻 Hardware - Selecione os Equipamentos</h4>
+                        <div class="checkbox-group">
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_desktop" name="hardware" value="desktop">
+                                <label for="hw_desktop">
+                                    <strong>Desktop</strong>
+                                    <div class="help-text">Computador fixo</div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_notebook" name="hardware" value="notebook">
+                                <label for="hw_notebook">
+                                    <strong>Notebook</strong>
+                                    <div class="help-text">Computador portátil</div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_impressora" name="hardware" value="impressora">
+                                <label for="hw_impressora">
+                                    <strong>Impressora</strong>
+                                    <div class="help-text">Impressora de documentos</div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_scanner" name="hardware" value="scanner">
+                                <label for="hw_scanner">
+                                    <strong>Scanner</strong>
+                                    <div class="help-text">Digitalização</div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_monitor" name="hardware" value="monitor">
+                                <label for="hw_monitor">
+                                    <strong>Monitor Adicional</strong>
+                                    <div class="help-text">Segundo monitor</div>
+                                </label>
+                            </div>
+                            <div class="checkbox-item">
+                                <input type="checkbox" id="hw_nobreak" name="hardware" value="nobreak">
+                                <label for="hw_nobreak">
+                                    <strong>No-break</strong>
+                                    <div class="help-text">Proteção energia</div>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- SEÇÃO 5: JUSTIFICATIVA -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">5</span>
+                        <span>Justificativa</span>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Descreva a necessidade dos acessos solicitados <span class="required">*</span></label>
+                        <textarea name="justificativa" required placeholder="Ex: Colaborador irá atuar na recepção e precisa acessar o Tasy para realizar cadastros de pacientes e agendamentos..."></textarea>
+                        <div class="help-text">Seja específico sobre as atividades que o colaborador irá realizar</div>
+                    </div>
+                </div>
+                
+                <!-- SEÇÃO 6: APROVAÇÃO -->
+                <div class="section">
+                    <div class="section-title">
+                        <span class="section-number">6</span>
+                        <span>Aprovação Gerencial</span>
+                    </div>
+                    
+                    <div class="approval-section">
+                        <strong>⚠️ ATENÇÃO:</strong> Esta solicitação deve ser aprovada pelo gerente responsável antes do envio à TI.
+                        
+                        <div class="form-row" style="margin-top: 20px;">
+                            <div class="form-group">
+                                <label>Gerente Aprovador <span class="required">*</span></label>
+                                <select name="gerente" required>
+                                    <option value="">Selecione...</option>
+                                    <option value="nailson">Nailson - Matriz/Convênios</option>
+                                    <option value="fracianne">Fracianne - Rio Vermelho</option>
+                                    <option value="cosme">Cosme - Monte Serrat</option>
+                                    <option value="jessica">Jéssica - Santo Estevão</option>
+                                    <option value="luciano">Luciano - Aprovação Excepcional</option>
+                                    <option value="diretoria">Diretoria - Aprovação Excepcional</option>
+                                </select>
+                                <div class="help-text">O gerente receberá o email em cópia para aprovação</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- BOTÕES -->
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="limparFormulario()">🔄 Limpar</button>
+                    <button type="button" class="btn-primary" onclick="gerarEmail()">📧 Gerar Email para Envio</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+    
+    <!-- MODAL DE EMAIL -->
+    <div id="emailModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📧 Email Pronto para Envio</h2>
+                <span class="modal-close" onclick="fecharModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <!-- CORPO DO EMAIL NO TOPO -->
+                <div style="margin-bottom: 20px;">
+                    <strong style="font-size: 16px;">📧 Corpo do Email:</strong>
+                    <div class="help-text" style="margin-top: 5px; margin-bottom: 10px;">Cole este texto no corpo do seu email mantendo a formatação</div>
+                    
+                    <textarea id="emailTexto" readonly style="width: 100%; height: 320px; padding: 15px; border: 3px solid #4F46E5; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; resize: vertical;"></textarea>
+                </div>
+                
+                <!-- BOTÃO COPIAR GRANDE E DESTACADO -->
+                <div style="text-align: center; margin: 25px 0;">
+                    <button type="button" class="btn-primary" onclick="copiarEmail()" style="font-size: 20px; padding: 20px 50px; box-shadow: 0 6px 20px rgba(79, 70, 229, 0.5); font-weight: bold;">
+                        📋 COPIAR CONTEÚDO DO EMAIL
+                    </button>
+                </div>
+                
+                <!-- CAMPOS PARA/CC/ASSUNTO -->
+                <div class="email-info">
+                    <div class="email-field">
+                        <strong>Para:</strong>
+                        <input type="text" id="email_para" value="ti@clinicacsb.com.br" readonly>
+                        <button class="btn-copy-small" onclick="copiarCampo('email_para')">📋 Copiar</button>
+                    </div>
+                    <div class="email-field">
+                        <strong>Assunto:</strong>
+                        <input type="text" id="email_assunto" readonly>
+                        <button class="btn-copy-small" onclick="copiarCampo('email_assunto')">📋 Copiar</button>
+                    </div>
+                    <!-- Campo CC oculto mas mantido para não quebrar o JavaScript -->
+                    <input type="hidden" id="email_cc">
+                </div>
+                
+                <!-- ALERTA IMPORTANTE -->
+                <div style="background: #fff3cd; border: 3px solid #ffc107; border-radius: 10px; padding: 20px; margin: 20px 0; text-align: center;">
+                    <div style="font-size: 32px; margin-bottom: 10px;">⚠️</div>
+                    <strong style="color: #856404; font-size: 16px; display: block; margin-bottom: 10px;">ESTE FORMULÁRIO NÃO ENVIA EMAIL AUTOMATICAMENTE</strong>
+                    <p style="margin: 0; color: #856404; font-size: 14px; line-height: 1.6;">
+                        Você deve <strong>COPIAR</strong> o conteúdo acima e <strong>COLAR</strong> manualmente no seu Outlook/Gmail.<br>
+                        O email será enviado para <strong>TI</strong> e para o <strong>Gerente Aprovador</strong> selecionado.
+                    </p>
+                </div>
+                
+                <!-- INSTRUÇÕES -->
+                <div class="info-box" style="background: #e7f3ff; border-left-color: #2196F3; margin-bottom: 20px;">
+                    <strong style="font-size: 14px;">📝 PASSO A PASSO:</strong>
+                    <ol style="margin: 8px 0 0 20px; line-height: 1.7; font-size: 13px;">
+                        <li>Abra seu <strong>Outlook</strong> ou <strong>Gmail</strong></li>
+                        <li>Clique em <strong>"Novo Email"</strong></li>
+                        <li>Cole o <strong>corpo do email</strong> copiado (Ctrl+V)</li>
+                        <li>Copie e cole <strong>Para</strong> e <strong>Assunto</strong> usando os botões acima</li>
+                        <li>Clique em <strong>"Enviar"</strong></li>
+                    </ol>
+                </div>
+                
+                <div class="button-group">
+                    <button type="button" class="btn-secondary" onclick="fecharModal()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+        // Gerar email formatado
+        function gerarEmail() {
+            const form = document.getElementById('accessForm');
+            
+            // Validação básica
+            if (!form.checkValidity()) {
+                alert('❌ Por favor, preencha todos os campos obrigatórios marcados com *');
+                form.reportValidity();
+                return;
+            }
+            
+            // Coletar dados do formulário
+            const dados = {
+                coordenador: form.querySelector('[name="coordenador"]').value,
+                setor: form.querySelector('[name="setor"]').value,
+                estabelecimento: form.querySelector('[name="estabelecimento"]').value,
+                data: form.querySelector('[name="data"]').value,
+                colaborador: form.querySelector('[name="colaborador_nome"]').value,
+                cpf: form.querySelector('[name="cpf"]').value,
+                funcao: form.querySelector('[name="funcao"]').value,
+                email: form.querySelector('[name="email"]').value || 'A criar',
+                tipo: form.querySelector('[name="tipo_solicitacao"]:checked').value,
+                justificativa: form.querySelector('[name="justificativa"]').value,
+                gerente: form.querySelector('[name="gerente"]').value
+            };
+            
+            // Coletar sistemas selecionados
+            const sistemas = [];
+            
+            // TASY
+            if (document.getElementById('sistema_tasy').checked) {
+                const perfis = Array.from(form.querySelectorAll('[name="tasy_perfis"]:checked'))
+                    .map(cb => cb.parentElement.textContent.trim().replace(/\s+/g, ' '));
+                if (perfis.length > 0) {
+                    sistemas.push({
+                        nome: 'Sistema Tasy',
+                        detalhes: perfis
+                    });
+                }
+            }
+            
+            // M365
+            if (document.getElementById('sistema_m365').checked) {
+                const licenca = form.querySelector('[name="m365_licenca"]:checked');
+                const exchange = form.querySelector('[name="m365_exchange_addon"]');
+                const detalhes = [];
+                
+                if (licenca) {
+                    const licencaTexto = licenca.parentElement.querySelector('strong').textContent;
+                    detalhes.push('Licença: ' + licencaTexto);
+                }
+                
+                if (exchange && exchange.checked) {
+                    detalhes.push('+ Exchange Online P2 (Adicional)');
+                }
+                
+                if (detalhes.length > 0) {
+                    sistemas.push({
+                        nome: 'Microsoft 365',
+                        detalhes: detalhes
+                    });
+                }
+            }
+            
+            // BI
+            if (document.getElementById('sistema_bi').checked) {
+                const perfil = form.querySelector('[name="bi_perfil"]:checked');
+                const grupos = Array.from(form.querySelectorAll('[name="bi_grupos"]:checked'))
+                    .map(cb => cb.parentElement.querySelector('strong').textContent);
+                
+                const detalhes = [];
+                if (perfil) {
+                    detalhes.push('Perfil: ' + perfil.parentElement.querySelector('strong').textContent);
+                }
+                if (grupos.length > 0) {
+                    detalhes.push('Grupos: ' + grupos.join(', '));
+                }
+                
+                if (detalhes.length > 0) {
+                    sistemas.push({
+                        nome: 'BI Weknow',
+                        detalhes: detalhes
+                    });
+                }
+            }
+            
+            // Hardware
+            if (document.getElementById('sistema_hardware').checked) {
+                const equipamentos = Array.from(form.querySelectorAll('[name="hardware"]:checked'))
+                    .map(cb => cb.parentElement.querySelector('strong').textContent);
+                if (equipamentos.length > 0) {
+                    sistemas.push({
+                        nome: 'Hardware',
+                        detalhes: equipamentos
+                    });
+                }
+            }
+            
+            if (sistemas.length === 0) {
+                alert('❌ Por favor, selecione pelo menos um sistema e seus respectivos acessos.');
+                return;
+            }
+            
+            // Montar email
+            const tipoTexto = dados.tipo === 'admissao' ? 'Nova Admissão' : 'Alteração de Acesso';
+            
+            // Email do aprovador
+            const aprovadores = {
+                'nailson': 'nailson@grupocsb.com.br',
+                'fracianne': 'fracianne@grupocsb.com.br',
+                'cosme': 'cosme@grupocsb.com.br',
+                'jessica': 'jessica@grupocsb.com.br',
+                'luciano': 'luciano@grupocsb.com.br',
+                'diretoria': 'diretoria@grupocsb.com.br'
+            };
+            
+            const emailAprovador = aprovadores[dados.gerente] || '';
+            
+            // Preencher campos do modal - Para: TI + Aprovador juntos
+            document.getElementById('email_para').value = `ti@grupocsb.com.br;${emailAprovador}`;
+            document.getElementById('email_cc').value = '';
+            document.getElementById('email_assunto').value = `Solicitação de Acesso TI - ${dados.colaborador} - ${tipoTexto}`;
+            
+            // Montar corpo do email
+            let emailBody = `SOLICITAÇÃO DE ACESSO A SISTEMAS DE TI
+═══════════════════════════════════════════════════════════
+
+DADOS DO SOLICITANTE
+────────────────────────────────────────────────────────────
+Coordenador Solicitante: ${dados.coordenador}
+Setor: ${dados.setor.toUpperCase()}
+Estabelecimento: ${dados.estabelecimento.toUpperCase()}
+Data da Solicitação: ${formatarData(dados.data)}
+
+DADOS DO COLABORADOR
+────────────────────────────────────────────────────────────
+Nome Completo: ${dados.colaborador}
+CPF: ${dados.cpf}
+Função/Cargo: ${dados.funcao}
+Email Corporativo: ${dados.email}
+
+TIPO DE SOLICITAÇÃO
+────────────────────────────────────────────────────────────
+☑ ${tipoTexto}
+
+SISTEMAS E ACESSOS SOLICITADOS
+════════════════════════════════════════════════════════════
+`;
+
+            sistemas.forEach((sistema, index) => {
+                emailBody += `\n${index + 1}. ${sistema.nome.toUpperCase()}\n`;
+                emailBody += `${'─'.repeat(60)}\n`;
+                sistema.detalhes.forEach(detalhe => {
+                    emailBody += `   • ${detalhe}\n`;
+                });
+            });
+
+            emailBody += `\nJUSTIFICATIVA
+────────────────────────────────────────────────────────────
+${dados.justificativa}
+
+APROVAÇÃO GERENCIAL
+════════════════════════════════════════════════════════════
+Gerente Responsável: ${form.querySelector('[name="gerente"] option:checked').text}
+Email do Aprovador: ${emailAprovador}
+
+⏳ AGUARDANDO APROVAÇÃO DO GERENTE
+(A aprovação será confirmada por resposta a este email)
+
+────────────────────────────────────────────────────────────
+Este email foi gerado através do Formulário de Solicitação de Acessos
+Conforme POP TI 001 - Política Geral de Gestão de Acessos
+Grupo CSB | Clínica Senhor do Bonfim
+────────────────────────────────────────────────────────────`;
+
+            document.getElementById('emailTexto').value = emailBody;
+            
+            // Mostrar modal
+            document.getElementById('emailModal').classList.add('active');
+        }
+        
+        function formatarData(data) {
+            if (!data) return 'Não informada';
+            const [ano, mes, dia] = data.split('-');
+            return `${dia}/${mes}/${ano}`;
+        }
+        
+        function fecharModal() {
+            document.getElementById('emailModal').classList.remove('active');
+        }
+        
+        function copiarCampo(campoId) {
+            const campo = document.getElementById(campoId);
+            campo.select();
+            document.execCommand('copy');
+            
+            // Feedback visual
+            const btn = event.target;
+            const textoOriginal = btn.textContent;
+            btn.textContent = '✅ Copiado!';
+            btn.style.background = '#28a745';
+            
+            setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.style.background = '#667eea';
+            }, 2000);
+        }
+        
+        function copiarEmail() {
+            const emailTexto = document.getElementById('emailTexto');
+            emailTexto.select();
+            document.execCommand('copy');
+            
+            // Feedback visual
+            const btn = event.target;
+            const textoOriginal = btn.textContent;
+            btn.textContent = '✅ Email Copiado!';
+            btn.style.background = '#28a745';
+            
+            setTimeout(() => {
+                btn.textContent = textoOriginal;
+                btn.style.background = '';
+            }, 2000);
+            
+            alert('✅ Email copiado com sucesso!\n\n📝 PRÓXIMOS PASSOS:\n\n1. Abra seu Outlook ou Gmail\n2. Clique em "Novo Email"\n3. Cole o texto copiado no CORPO do email (Ctrl+V)\n4. Não esqueça de copiar também:\n   • Para: ti@clinicacsb.com.br\n   • CC: [email do aprovador]\n   • Assunto: [use o botão de copiar]\n\n5. Envie o email!\n\n✉️ O aprovador receberá em cópia e responderá confirmando.');
+        }
+        
+        // Fechar modal ao clicar fora
+        window.onclick = function(event) {
+            const modal = document.getElementById('emailModal');
+            if (event.target == modal) {
+                fecharModal();
+            }
+        }
+        
+        // Toggle Tasy accordion categories
+        function toggleTasyCategory(category) {
+            const content = document.getElementById('tasy_' + category);
+            const header = content.previousElementSibling;
+            
+            // Toggle active class
+            header.classList.toggle('active');
+            content.classList.toggle('active');
+        }
+        
+        // Filter Tasy profiles by search
+        function filtrarPerfisTasy() {
+            const searchTerm = document.getElementById('tasy_search').value.toLowerCase();
+            const items = document.querySelectorAll('.tasy-perfil-item');
+            let hasVisibleItems = {};
+            
+            items.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'flex';
+                    // Find parent category and mark as having visible items
+                    const category = item.closest('.tasy-category-content');
+                    if (category) {
+                        hasVisibleItems[category.id] = true;
+                    }
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            
+            // Show/hide categories based on visible items
+            if (searchTerm) {
+                document.querySelectorAll('.tasy-category-content').forEach(content => {
+                    if (hasVisibleItems[content.id]) {
+                        content.classList.add('active');
+                        content.previousElementSibling.classList.add('active');
+                    }
+                });
+            }
+        }
+        
+        // Toggle system details
+        function toggleSystem(system) {
+            const checkbox = document.getElementById('sistema_' + system);
+            const details = document.getElementById('details_' + system);
+            
+            if (checkbox.checked) {
+                details.classList.add('active');
+            } else {
+                details.classList.remove('active');
+            }
+        }
+        
+        // Clear form
+        function limparFormulario() {
+            if (confirm('Deseja realmente limpar todos os campos?')) {
+                document.getElementById('accessForm').reset();
+                document.querySelectorAll('.system-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        }
+    
+        // Set today's date as default
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelector('[name="data"]').valueAsDate = new Date();
+        });
+    </script>
+</body>
+</html>
