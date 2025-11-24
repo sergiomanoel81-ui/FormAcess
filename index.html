@@ -1088,37 +1088,55 @@
             <div class="modal-body">
                 <!-- CORPO DO EMAIL NO TOPO -->
                 <div style="margin-bottom: 20px;">
-                    <h3 style="margin: 0 0 10px 0; font-size: 20px; color: #333;">📧 Corpo do Email:</h3>
-                    <p style="margin: 0 0 15px 0; color: #666; font-size: 14px;">Cole este texto no corpo do seu email mantendo a formatação</p>
+                    <h3 style="margin: 0 0 10px 0; font-size: 18px; color: #333;">📧 Corpo do Email</h3>
+                    <p style="margin: 0 0 10px 0; color: #666; font-size: 13px;">Cole este texto no corpo do seu email</p>
                     
-                    <textarea id="emailTexto" readonly style="width: 100%; height: 350px; padding: 15px; border: 3px solid #667eea; border-radius: 10px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; background: #f8f9fa; resize: vertical;"></textarea>
+                    <textarea id="emailTexto" readonly style="width: 100%; height: 300px; padding: 15px; border: 3px solid #667eea; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 13px; line-height: 1.6; resize: vertical;"></textarea>
                 </div>
                 
-                <!-- BOTÃO COPIAR GRANDE E DESTACADO -->
-                <div style="text-align: center; margin: 25px 0;">
-                    <button type="button" class="btn-primary" onclick="copiarEmail()" style="font-size: 20px; padding: 20px 50px; box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5); font-weight: bold;">
+                <!-- BOTÃO COPIAR GRANDE -->
+                <div style="text-align: center; margin: 20px 0;">
+                    <button type="button" class="btn-primary" onclick="copiarEmail()" style="font-size: 18px; padding: 18px 40px; font-weight: bold; box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);">
                         📋 COPIAR CONTEÚDO DO EMAIL
                     </button>
                 </div>
                 
-                <!-- ALERTA AMARELO -->
-                <div style="background: #fff9e6; border: 2px solid #ffd700; border-radius: 10px; padding: 15px; margin-bottom: 20px;">
-                    <strong style="color: #d97706; font-size: 16px;">⚠️ RESPONSÁVEIS PELO ENVIO:</strong>
-                    <div style="margin-top: 10px; line-height: 1.6;">
-                        <strong>Para (Destinatário Principal):</strong> TI - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1c5d8f1d2ddd8dfd8d2d0d2c2d39fd2dedc9fd3c3">[email&#160;protected]</a><br>
-                        <strong>CC (Com Cópia):</strong> Gerente Aprovador - Ele receberá e responderá confirmando a aprovação
+                <!-- CAMPOS PARA/CC/ASSUNTO -->
+                <div class="email-info">
+                    <div class="email-field">
+                        <strong>Para:</strong>
+                        <input type="text" id="email_para" value="ti@clinicacsb.com.br" readonly>
+                        <button class="btn-copy-small" onclick="copiarCampo('email_para')">📋 Copiar</button>
                     </div>
+                    <div class="email-field">
+                        <strong>CC:</strong>
+                        <input type="text" id="email_cc" readonly>
+                        <button class="btn-copy-small" onclick="copiarCampo('email_cc')">📋 Copiar</button>
+                    </div>
+                    <div class="email-field">
+                        <strong>Assunto:</strong>
+                        <input type="text" id="email_assunto" readonly>
+                        <button class="btn-copy-small" onclick="copiarCampo('email_assunto')">📋 Copiar</button>
+                    </div>
+                </div>
+                
+                <!-- ALERTA -->
+                <div style="background: #fff9e6; border: 2px solid #ffd700; border-radius: 10px; padding: 15px; margin: 20px 0;">
+                    <strong style="color: #d97706; font-size: 14px;">⚠️ ATENÇÃO:</strong>
+                    <p style="margin: 8px 0 0 0; color: #333; font-size: 13px; line-height: 1.6;">
+                        Este formulário NÃO envia automaticamente. Copie o conteúdo acima e cole no seu Outlook/Gmail.
+                    </p>
                 </div>
                 
                 <!-- INSTRUÇÕES -->
                 <div style="background: #e7f3ff; border-left: 4px solid #2196F3; border-radius: 5px; padding: 15px; margin-bottom: 20px;">
-                    <strong style="color: #1976d2;">📝 INSTRUÇÕES PARA ENVIO:</strong>
-                    <ol style="margin: 10px 0 0 20px; line-height: 1.8;">
-                        <li>Abra seu <strong>Outlook</strong> ou <strong>Gmail</strong></li>
-                        <li>Clique em <strong>"Novo Email"</strong> ou <strong>"Escrever"</strong></li>
-                        <li>Cole o texto copiado no <strong>corpo do email</strong> (Ctrl+V)</li>
-                        <li>Preencha os campos Para, CC e Assunto (informações no texto)</li>
-                        <li>Clique em <strong>"Enviar"</strong></li>
+                    <strong style="color: #1976d2; font-size: 14px;">📝 COMO ENVIAR:</strong>
+                    <ol style="margin: 8px 0 0 20px; line-height: 1.7; font-size: 13px;">
+                        <li>Abra seu Outlook ou Gmail</li>
+                        <li>Clique em "Novo Email"</li>
+                        <li>Cole o conteúdo copiado no corpo (Ctrl+V)</li>
+                        <li>Preencha Para, CC e Assunto usando os campos acima</li>
+                        <li>Clique em "Enviar"</li>
                     </ol>
                 </div>
                 
@@ -1129,7 +1147,7 @@
         </div>
     </div>
     
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Gerar email formatado
         function gerarEmail() {
             const form = document.getElementById('accessForm');
@@ -1233,9 +1251,10 @@
                 return;
             }
             
-            // Definir variáveis necessárias
+            // Montar email
             const tipoTexto = dados.tipo === 'admissao' ? 'Nova Admissão' : 'Alteração de Acesso';
             
+            // Email do aprovador
             const aprovadores = {
                 'nailson': 'nailson@clinicacsb.com.br',
                 'fracianne': 'fracianne@clinicacsb.com.br',
@@ -1247,18 +1266,13 @@
             
             const emailAprovador = aprovadores[dados.gerente] || '';
             
+            // Preencher campos do modal
+            document.getElementById('email_para').value = 'ti@clinicacsb.com.br';
+            document.getElementById('email_cc').value = emailAprovador;
+            document.getElementById('email_assunto').value = `Solicitação de Acesso TI - ${dados.colaborador} - ${tipoTexto}`;
+            
             // Montar corpo do email
-            let emailBody = `════════════════════════════════════════════════════════════
-📧 INFORMAÇÕES PARA O EMAIL
-════════════════════════════════════════════════════════════
-
-PARA: ti@clinicacsb.com.br
-CC: ${emailAprovador}
-ASSUNTO: Solicitação de Acesso TI - ${dados.colaborador} - ${tipoTexto}
-
-════════════════════════════════════════════════════════════
-
-SOLICITAÇÃO DE ACESSO A SISTEMAS DE TI
+            let emailBody = `SOLICITAÇÃO DE ACESSO A SISTEMAS DE TI
 ═══════════════════════════════════════════════════════════
 
 DADOS DO SOLICITANTE
@@ -1426,3 +1440,11 @@ Grupo CSB | Clínica Senhor do Bonfim
         function limparFormulario() {
             if (confirm('Deseja realmente limpar todos os campos?')) {
                 document.getElementById('accessForm').reset();
+                document.querySelectorAll('.system-details').forEach(el => {
+                    el.classList.remove('active');
+                });
+            }
+        }
+        
+        // Set today's date as default
+        documen
