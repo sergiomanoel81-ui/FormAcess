@@ -1105,7 +1105,7 @@
                 <div style="background: #fff9e6; border: 2px solid #ffd700; border-radius: 10px; padding: 15px; margin-bottom: 20px;">
                     <strong style="color: #d97706; font-size: 16px;">⚠️ RESPONSÁVEIS PELO ENVIO:</strong>
                     <div style="margin-top: 10px; line-height: 1.6;">
-                        <strong>Para (Destinatário Principal):</strong> TI - ti@clinicacsb.com.br<br>
+                        <strong>Para (Destinatário Principal):</strong> TI - <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="b1c5d8f1d2ddd8dfd8d2d0d2c2d39fd2dedc9fd3c3">[email&#160;protected]</a><br>
                         <strong>CC (Com Cópia):</strong> Gerente Aprovador - Ele receberá e responderá confirmando a aprovação
                     </div>
                 </div>
@@ -1129,7 +1129,7 @@
         </div>
     </div>
     
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         // Gerar email formatado
         function gerarEmail() {
             const form = document.getElementById('accessForm');
@@ -1233,10 +1233,9 @@
                 return;
             }
             
-            // Montar email
+            // Definir variáveis necessárias
             const tipoTexto = dados.tipo === 'admissao' ? 'Nova Admissão' : 'Alteração de Acesso';
             
-            // Email do aprovador
             const aprovadores = {
                 'nailson': 'nailson@clinicacsb.com.br',
                 'fracianne': 'fracianne@clinicacsb.com.br',
@@ -1248,13 +1247,18 @@
             
             const emailAprovador = aprovadores[dados.gerente] || '';
             
-            // Preencher campos do modal
-            document.getElementById('email_para').value = 'ti@clinicacsb.com.br';
-            document.getElementById('email_cc').value = emailAprovador;
-            document.getElementById('email_assunto').value = `Solicitação de Acesso TI - ${dados.colaborador} - ${tipoTexto}`;
-            
             // Montar corpo do email
-            let emailBody = `SOLICITAÇÃO DE ACESSO A SISTEMAS DE TI
+            let emailBody = `════════════════════════════════════════════════════════════
+📧 INFORMAÇÕES PARA O EMAIL
+════════════════════════════════════════════════════════════
+
+PARA: ti@clinicacsb.com.br
+CC: ${emailAprovador}
+ASSUNTO: Solicitação de Acesso TI - ${dados.colaborador} - ${tipoTexto}
+
+════════════════════════════════════════════════════════════
+
+SOLICITAÇÃO DE ACESSO A SISTEMAS DE TI
 ═══════════════════════════════════════════════════════════
 
 DADOS DO SOLICITANTE
@@ -1422,11 +1426,3 @@ Grupo CSB | Clínica Senhor do Bonfim
         function limparFormulario() {
             if (confirm('Deseja realmente limpar todos os campos?')) {
                 document.getElementById('accessForm').reset();
-                document.querySelectorAll('.system-details').forEach(el => {
-                    el.classList.remove('active');
-                });
-            }
-        }
-        
-        // Set today's date as default
-        documen
