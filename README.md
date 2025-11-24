@@ -1,6 +1,6 @@
 # 📋 Formulário de Solicitação de Acessos - TI
 
-Sistema web para solicitação padronizada de acessos aos sistemas de TI da **Clínica Senhor do Bonfim (Grupo CSB)**.
+Sistema web para solicitação padronizada de acessos aos sistemas de TI da 
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub-Pages-blue?logo=github)](https://github.com)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -70,7 +70,7 @@ O formulário permite solicitar acessos para:
 ### ✅ Geração de Email Automática
 - Gera email formatado profissionalmente
 - Preenche automaticamente:
-  - Para: `ti@clinicacsb.com.br`
+  - Para: `ti@ti.com.br`
   - CC: Email do aprovador selecionado
   - Assunto: Gerado com nome e tipo de solicitação
   - Corpo: Formatado em texto ASCII estruturado
@@ -133,20 +133,14 @@ formulario-acessos-ti/
 
 | Destinatário | Email | Função |
 |--------------|-------|--------|
-| **TI** | ti@clinicacsb.com.br | Implementa os acessos |
+| **TI** | ti@ticom.br | Implementa os acessos |
 | **Aprovadores** | *[conforme gerente selecionado]* | Aprovam as solicitações |
 
 ### Aprovadores por Estabelecimento:
 
 | Estabelecimento | Gerente | Email |
 |-----------------|---------|-------|
-| Matriz/Convênios | Nailson | nailson@clinicacsb.com.br |
-| Rio Vermelho | Fracianne | fracianne@clinicacsb.com.br |
-| Monte Serrat | Cosme | cosme@clinicacsb.com.br |
-| Santo Estevão | Jéssica | jessica@clinicacsb.com.br |
-| Gratidão | *[conforme estrutura]* | - |
-| Aprovação Excepcional | Luciano | luciano@clinicacsb.com.br |
-| Aprovação Excepcional | Diretoria | diretoria@clinicacsb.com.br |
+| ESTAB | GETEN | GERENTE@GERENTE.com.br |
 
 ---
 
@@ -306,7 +300,7 @@ Abra uma [Issue](https://github.com/SEUUSUARIO/formulario-acessos-ti/issues) des
 Abra uma [Issue](https://github.com/SEUUSUARIO/formulario-acessos-ti/issues) com a tag `enhancement`
 
 ### 📧 Contato TI
-Para dúvidas sobre acessos: **ti@clinicacsb.com.br**
+Para dúvidas sobre acessos: **ti@ticom.br**..
 
 ---
 
@@ -375,6 +369,6 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 **⭐ Se este projeto foi útil, considere dar uma estrela no GitHub! ⭐**
 
-Feito com ❤️ pela equipe de TI do Grupo CSB
+Feito com ❤️ pela equipe de TI 
 
 </div>
